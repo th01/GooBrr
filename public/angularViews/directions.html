@@ -1,0 +1,18 @@
+<div ng-controller="directionsCtrl" class="row selection container">
+
+	<h3>Directions</h3>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default trave-mode active" value="DRIVING" >Driving</button>
+		<button type="button" class="btn btn-default trave-mode" value="WALKING" >Walking</button>
+		<button type="button" class="btn btn-default trave-mode" value="BICYCLING" >Bicycling</button>
+	</div>
+	<div id="directions-map"></div>
+	<div class="yes-no-container">
+		<button type="button" class="yes-no-button directions" ng-click="textDirections()" >Text It To Me</button>
+	</div>
+</div>
+
+
+<script>
+	directionsMap();
+</script>

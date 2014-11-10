@@ -1,0 +1,19 @@
+<div ng-controller="viewBusinessCtrl">
+	<div class="row selection" >
+		<div class="selection-image-container">
+			<img ng-src="{{selectedArr[i].image_url}}" class="selection-image">
+		</div>
+		<div class="selection-centered">
+			<img ng-src="{{selectedArr[i].rating_image_url}}">
+		</div>
+		<h2 class="selection-centered" >{{selectedArr[i].name}}</h2>
+		<h5 >Distance: {{selectedArr[i].distance}}</h5>
+		<h5 >Address: {{selectedArr[i].address}}</h5>
+		<h5 >Categories: {{selectedArr[i].categories.join(', ')}}</h5>
+		<div class="yes-no-container">
+			<button type="button" class="yes-no-button no" ng-click="removeFromSelected(i)" >X</button>
+			<button type="button" class="yes-no-button directions" ng-click="directions(i)" >Directions</button>
+		</div>
+	</div>
+</div>
+

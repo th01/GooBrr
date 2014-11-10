@@ -1,0 +1,47 @@
+<div class="container" id="home">
+	<h3>What Are You Looking For?</h3>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default term" value="food" >Food</button>
+		<button type="button" class="btn btn-default term" value="restaurant" >Restaurants</button>
+		<button type="button" class="btn btn-default term" value="bar" >Bars</button>
+		<div class="btn-group">
+			<button type="button" id="term-dropdown" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				By Category
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="javascript:void(0)" class="term" data-value="barbeque" >Barbeque</a></li>
+				<li><a href="javascript:void(0)" class="term" data-value="burger" >Burgers</a></li>
+				<li><a href="javascript:void(0)" class="term" data-value="buffet" >Buffet</a></li>
+				<li><a href="javascript:void(0)" class="term" data-value="coffee" >Coffee</a></li>
+				<li><a href="javascript:void(0)" class="term" data-value="pizza" >Pizza</a></li>
+				<li><a href="javascript:void(0)" class="term" data-value="Steakhouse" >Steakhouses‎</a></li>
+			</ul>
+		</div>
+	</div>
+	<h3>Pick a Search Radius</h3>
+	<div class="btn-group">
+		<button type="button" class="btn btn-default radius" value="200" >2 Blocks</button>
+		<button type="button" class="btn btn-default radius" value="400" >4 Blocks</button>
+		<button type="button" class="btn btn-default radius" value="1610" >1 Mile</button>
+		<button type="button" class="btn btn-default radius" value="8047" >5 Miles</button>
+		<button type="button" class="btn btn-default radius" value="16094" >10 Miles</button>
+		<button type="button" class="btn btn-default radius" value="40000" >25 Miles</button>
+	</div>
+
+
+
+	<h3>Your Location</h3>
+	<div id="map_canvas"></div>
+
+	<div class="selection-centered btn-group submit">
+		<button type="submit" id="home-submit" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+			Submit
+		</button>
+	</div>
+</div>
+
+<script>
+	homeMap();
+</script>
+
