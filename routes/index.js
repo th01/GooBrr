@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var cors = require('cors');
 var request = require('request');
+var config = require('../config');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -17,10 +18,10 @@ router.post('/', function (req, res) {
 	var offset = req.param('offset', '0');
 
 	var yelp = require("yelp").createClient({
-		consumer_key: process.env.yelp_consumer_key, 
-		consumer_secret: process.env.yelp_consumer_secret,
-		token: process.env.yelp_token,
-		token_secret: process.env.yelp_token_secret
+		consumer_key: config.yelp.consumer_key, 
+		consumer_secret: config.yelp.consumer_secret,
+		token: config.yelp.token,
+		token_secret: config.yelp.token_secret
 	});
 
 	yelp.search({
