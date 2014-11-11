@@ -62,6 +62,15 @@ router.post('/', function (req, res) {
 
 });
 
+router.post('/ipLocation', cors(), function (req, res) {
+	request.get('http://ipinfodb.com/ip_query.php?timezone=false&ip=69.59.196.211',
+	function (error, response, body) {
+		if (!error && response.statusCode == 200) {
+    		res.send(body);
+		}
+	});
+});
+
 router.post('/text', cors(), function (req, res) {
 	var number = parseInt(req.param('number'));
 	var message = req.param('message');

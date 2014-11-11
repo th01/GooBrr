@@ -1,6 +1,4 @@
-function homeMap () {
-
-	var lat, lng, crd, acc, term, radius, offset = 0;
+function initializeHome () {
 
 	$('.term').on('click', function () {
 		$('.term, #term-dropdown').removeClass("active");
@@ -19,12 +17,20 @@ function homeMap () {
 		radius = $(this).val();
 		$(this).addClass("active").siblings().removeClass("active");
 	});
+	
+	var $btn = $('#home-submit').button('loading');
 
-	function initializeMap(lat, lng) {
+	$btn.on('click', function () {
+		getBusinesses();
+	});
+
+	var lat, lng, crd, acc, term, radius, offset = 0;
+
+	function initializeMap(lat, lng, acc, zoom) {
 		var mapCanvas = document.getElementById('map_canvas');
 		var mapOptions = {
 			center: new google.maps.LatLng(lat, lng),
-			zoom: 18,
+			zoom: zoom,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		var map = new google.maps.Map(mapCanvas, mapOptions);
@@ -32,37 +38,63 @@ function homeMap () {
 			position: new google.maps.LatLng(lat, lng),
 			title:"Your Location"
 		});
+		var circle = new google.maps.Circle({
+			center: new google.maps.LatLng(lat, lng),
+			strokeColor: '#FF0000',
+			strokeOpacity: 0.8,
+			strokeWeight: 2,
+			fillColor: '#FF0000',
+			fillOpacity: 0.35,
+			radius: acc
+		});
+
 		marker.setMap(map);
+		circle.setMap(map);
 	}
 
-	google.maps.event.addDomListener(window, 'load', initializeMap);
+	initializeMap(39.828127,-98.579404, null, 3);
 
-	var $btn = $('#home-submit').button('loading');
-	var options = {
-		enableHighAccuracy: true,
-		timeout: 10000,
-		maximumAge: 0
-	};
 
-	function success(pos) {
-		crd = pos.coords;
-		lat = (crd.latitude).toFixed(5);
-		lng = (crd.longitude).toFixed(5);
-		acc = crd.accuracy;
-		$btn.button('reset');
-		initializeMap(lat, lng);
+	function codeAddress(address) {
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode( { 'address': address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				initializeMap(results[0].geometry.location.k, results[0].geometry.location.B, null, 17);
+				$btn.button('reset');
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		});
 	}
 
-	function error(err) {
-		alert('error loading GPS coordinates, please refresh page');
-		console.warn('ERROR(' + err.code + '): ' + err.message);
+	function locateByBrowser () {
+
+		var options = {
+			enableHighAccuracy: true,
+			timeout: 10000,
+			maximumAge: 0
+		};
+
+		function success(pos) {
+			crd = pos.coords;
+			lat = (crd.latitude).toFixed(5);
+			lng = (crd.longitude).toFixed(5);
+			acc = crd.accuracy;
+			$btn.button('reset');
+			initializeMap(lat, lng, acc, 17);
+		}
+
+		function error(err) {
+			console.warn('ERROR(' + err.code + '): ' + err.message);
+			var address = prompt('Unable to determine your location. Please input your address:');
+			codeAddress(address);
+		}
+
+		navigator.geolocation.getCurrentPosition(success, error, options);
 	}
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+	locateByBrowser();
 
-	$('#home-submit').on('click', function () {
-		getBusinesses();
-	});
 
 	function getBusinesses (callback) {
 		var params = {
@@ -98,8 +130,8 @@ function homeMap () {
 		return [lat,lng];
 	}
 
-	homeMap.getBusinesses = getBusinesses;
-	homeMap.getLocation = getLocation;
+	initializeHome.getMoreBusinesses = getBusinesses;
+	initializeHome.getLocation = getLocation;
 }
 
 

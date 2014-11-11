@@ -16,7 +16,7 @@ function directionsMap () {
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		map = new google.maps.Map(document.getElementById('directions-map'));
 		directionsDisplay.setMap(map);
-		var start = homeMap.getLocation().join(',');
+		var start = initializeHome.getLocation().join(',');
 		var end = selectedBusiness.latLng.join(',');
 		var request = {
 			origin: start,

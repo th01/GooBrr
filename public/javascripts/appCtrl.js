@@ -31,12 +31,13 @@ myApp.config(function($routeProvider) {
 	});
 });
 
+var businessesArr, selectedArr = [], selectedBusiness;
+
 // controllers
 
-
-myApp.controller('homeCtrl', function($rootScope) {
+myApp.controller('homeCtrl', function() {
+	businessesArr = []; selectedArr = []; selectedBusiness = [];
 	$("#wrapper").addClass('toggled');
-	$rootScope.shown = {};
 });
 
 myApp.controller('selectionCtrl', function($rootScope, $route) {
@@ -52,11 +53,11 @@ myApp.controller('selectionCtrl', function($rootScope, $route) {
 		selectedArr.push(businessesArr[index]);
 		$rootScope.remove(index);
 	};
-	$rootScope.getBusinesses = function () {
+	$rootScope.getMoreBusinesses = function () {
 		function reloadView () {
 			$route.reload();
 		}
-		homeMap.getBusinesses(reloadView);
+		initializeHome.getMoreBusinesses(reloadView);
 	};
 });
 
@@ -110,7 +111,6 @@ myApp.controller('directionsCtrl', function($rootScope, $routeParams) {
 
 });
 
-var businessesArr, selectedArr = [], selectedBusiness;
 
 $(document).on('ready', function () {
 	$('#nav-results').on('click', function () {
