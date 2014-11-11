@@ -1,5 +1,5 @@
 <div ng-controller="selectionCtrl">
-	<div ng-repeat="business in businessesArr" class="row selection" style="z-index: {{ businessesArr.length - $index }}" >
+	<div ng-repeat="business in businessesArr track by $index" class="row selection" style="z-index: {{ businessesArr.length - $index }}" >
 		<div class="selection-image-container">
 			<img ng-src="{{business.image_url}}" class="selection-image">
 		</div>
@@ -18,9 +18,8 @@
 		<div class="selection-image-container">
 			<img src="/images/sad-face.jpg" class="selection-image">
 		</div>
-		<h3 class="selection-centered" >You've ran out of suggestions, check to see if there's more or check your results</a></h3>
+		<h3 class="selection-centered" >You've ran out of suggestions.</a></h3>
 		<div class="yes-no-container">
-			<button type="button" class="yes-no-button more" ng-click="getMoreBusinesses()" >more</button>
 			<button type="button" class="yes-no-button results" ng-click="results()" >results</button>
 		</div>
 	</div>

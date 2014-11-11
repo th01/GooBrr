@@ -31,33 +31,41 @@ myApp.config(function($routeProvider) {
 	});
 });
 
-var businessesArr, selectedArr = [], selectedBusiness;
+var selectedArr = [], selectedBusiness;
 
 // controllers
 
-myApp.controller('homeCtrl', function() {
-	businessesArr = []; selectedArr = []; selectedBusiness = [];
+myApp.controller('homeCtrl', function($rootScope) {
+	selectedArr = [];
 	$("#wrapper").addClass('toggled');
+
+	$rootScope.homeSubmit = function () {
+		initializeHome.getMoreBusinesses(function(data) {
+			$rootScope.businessesArr = data;
+		}, 0);
+	};
 });
 
 myApp.controller('selectionCtrl', function($rootScope, $route) {
+	var offset;
 	$rootScope.results = function () {
 		$("#wrapper").toggleClass("toggled");
 	};
 	$rootScope.selectedArr = selectedArr;
-	$rootScope.businessesArr = businessesArr;
 	$rootScope.remove = function (index) {
 		$rootScope.businessesArr.splice(index, 1);
+		if ($rootScope.businessesArr.length === 2) {
+			offset = offset ? offset + 20 : 20;
+			initializeHome.getMoreBusinesses(function(data) {
+				$rootScope.$apply(function() {
+					$rootScope.businessesArr = $rootScope.businessesArr.concat(data);
+				});
+			}, offset);
+		}
 	};
 	$rootScope.addBusiness = function (index) {
-		selectedArr.push(businessesArr[index]);
+		selectedArr.push($rootScope.businessesArr[index]);
 		$rootScope.remove(index);
-	};
-	$rootScope.getMoreBusinesses = function () {
-		function reloadView () {
-			$route.reload();
-		}
-		initializeHome.getMoreBusinesses(reloadView);
 	};
 });
 

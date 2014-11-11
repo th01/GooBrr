@@ -20,11 +20,7 @@ function initializeHome () {
 	
 	var $btn = $('#home-submit').button('loading');
 
-	$btn.on('click', function () {
-		getBusinesses();
-	});
-
-	var lat, lng, crd, acc, term, radius, offset = 0;
+	var lat, lng, crd, acc, term, radius;
 
 	function initializeMap(lat, lng, acc, zoom) {
 		var mapCanvas = document.getElementById('map_canvas');
@@ -52,14 +48,17 @@ function initializeHome () {
 		circle.setMap(map);
 	}
 
+	//set default view to center of USA at zoom of 3 with no radius
 	initializeMap(39.828127,-98.579404, null, 3);
 
 
 	function codeAddress(address) {
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode( { 'address': address}, function(results, status) {
+			lat = results[0].geometry.location.k;
+			lng = results[0].geometry.location.B;
 			if (status == google.maps.GeocoderStatus.OK) {
-				initializeMap(results[0].geometry.location.k, results[0].geometry.location.B, null, 17);
+				initializeMap(lat, lng, null, 17);
 				$btn.button('reset');
 			} else {
 				alert("Geocode was not successful for the following reason: " + status);
@@ -96,7 +95,7 @@ function initializeHome () {
 	locateByBrowser();
 
 
-	function getBusinesses (callback) {
+	function getBusinesses (callback, offset) {
 		var params = {
 			term: term,
 			radius: radius,
@@ -111,13 +110,8 @@ function initializeHome () {
 			data: params,
 			success: function(data, textStatus, jqXHR)
 			{
-				businessesArr = data;
-				offset += 20;
 				window.location = '#/selection';
-				
-				if (callback) {
-					callback();
-				}
+				callback(data);
 			},
 			error: function (jqXHR, textStatus, errorThrown) 
 			{
