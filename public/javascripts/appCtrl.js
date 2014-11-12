@@ -89,7 +89,7 @@ myApp.controller('viewBusinessCtrl', function($rootScope, $routeParams) {
 
 myApp.controller('directionsCtrl', function($rootScope, $routeParams) {
 
-
+	$rootScope.selectedBusiness = selectedBusiness;
 
 	$rootScope.textDirections = function () {
 		number = prompt("Please insert your phone number");
@@ -97,7 +97,7 @@ myApp.controller('directionsCtrl', function($rootScope, $routeParams) {
 		function textBelt (number) {
 			var data = {
 				number: number.replace(/\D/g,''),
-				message: "GooBrr.com\n\n" + selectedBusiness.name + "\n" + selectedBusiness.address + "\n" + selectedBusiness.city + ", " + selectedBusiness.state + " " + selectedBusiness.zip_code + "\n\nhttps://www.google.com/maps/dir/Current+Location/" + selectedBusiness.latLng.join(",")
+				message: "GooBrr.com\n\n" + selectedBusiness.name + "\n" + selectedBusiness.address + "\n" + selectedBusiness.city + ", " + selectedBusiness.state + " " + selectedBusiness.zip_code + "\n\nhttp://maps.google.com/maps?z=12&t=m&q=loc:" + selectedBusiness.latLng.join("+")
 			};
 			$.ajax({
 				url: '/text',
