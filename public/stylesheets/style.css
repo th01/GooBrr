@@ -13,6 +13,11 @@ body {
 	/*overflow: auto;*/
 }
 
+/*removed blue box around buttons when clicked*/
+*:focus {
+    outline: 0;
+}
+
 /*map style on home screen*/
 #map_canvas {
 	margin-left: auto;
