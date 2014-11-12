@@ -9,6 +9,7 @@
 		<h2 class="selection-centered" >{{business.name}}</h2>
 		<h5 >Distance: {{business.distance}}</h5>
 		<h5 >Categories: {{business.categories.join(', ')}}</h5>
+		
 		<div class="yes-no-container">
 			<button type="button" class="yes-no-button no" ng-click="remove($index)" >X</button>
 			<button type="button" class="yes-no-button yes" ng-click="addBusiness($index)" >√</button>

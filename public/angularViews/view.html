@@ -9,6 +9,7 @@
 		<h2 class="selection-centered" >{{selectedArr[i].name}}</h2>
 		<h5 >Distance: {{selectedArr[i].distance}}</h5>
 		<h5 >Address: {{selectedArr[i].address}}</h5>
+		<h5 >Phone: {{selectedArr[i].phone}}</h5>
 		<h5 >Categories: {{selectedArr[i].categories.join(', ')}}</h5>
 		<div class="yes-no-container">
 			<button type="button" class="yes-no-button no" ng-click="removeFromSelected(i)" >X</button>
@@ -16,4 +17,3 @@
 		</div>
 	</div>
 </div>
-

@@ -130,4 +130,3 @@ $(document).on('ready', function () {
 		$("#wrapper").toggleClass("toggled");
 	});
 });
-
