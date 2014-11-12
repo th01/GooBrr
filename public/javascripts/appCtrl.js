@@ -104,7 +104,12 @@ myApp.controller('directionsCtrl', function($rootScope, $routeParams) {
 				type: 'POST',
 				data: data,
 				success: function(data, textStatus, jqXHR) {
-					alert('Success!');
+					dataObj = JSON.parse(data);
+					if (dataObj.success) {
+						alert('Success!');
+					} else {
+						alert(dataObj.message);
+					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) 
 				{
