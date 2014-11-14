@@ -8,7 +8,6 @@ var config = require('../config');
 router.get('/', function (req, res) {
 	res.render('layout');
 });
-
 router.post('/', function (req, res) {
 
 	var term = req.param('term', 'restaurant');  // second parameter is default
