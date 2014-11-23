@@ -79,8 +79,9 @@ function initializeHome () {
 			lat = (crd.latitude).toFixed(5);
 			lng = (crd.longitude).toFixed(5);
 			acc = crd.accuracy;
+			zoom = acc < 50 ? 17 : Math.round( 20 - Math.log(acc/5)/Math.log(10)*3);
 			$btn.button('reset');
-			initializeMap(lat, lng, acc, 17);
+			initializeMap(lat, lng, acc, zoom);
 		}
 
 		function error(err) {
